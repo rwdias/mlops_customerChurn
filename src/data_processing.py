@@ -8,10 +8,21 @@ from sklearn.model_selection import train_test_split
 
 class DataProcessing:
 
-    def __init__(self, spark_df: SparkDataFrame, config: ProjectConfig, spark: SparkSession) -> None:
-    self.df = spark_df  # Store the Spark DataFrame as self.df
-    self.config = config  # Store the configuration
-    self.spark = spark 
+    # 1. Altere o tipo do parâmetro para str (caminho do dataset)
+    def __init__(self, dataset_path: str, spark: SparkSession) -> None:
+        # 2. Defina o self.spark PRIMEIRO
+        self.spark = spark 
+        
+        # 3. Agora self.spark está disponível para fazer a leitura
+        self.df = (
+            self.spark.read
+            .option("nullValue", " ")
+            .csv(dataset_path, header=True, multiLine=True, escape="'", inferSchema=True)
+        ) 
 
-    def save_to_delta(self, type) -> None:
+    def display(self) -> None:
+        # Nota: Se estiver no Databricks, display() funciona. 
+        # Caso contrário, utilize self.df.show()
+        display(self.df)
+        
         
