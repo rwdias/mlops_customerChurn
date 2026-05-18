@@ -11,4 +11,7 @@ class DataProcessing:
     def __init__(self, spark_df: SparkDataFrame, config: ProjectConfig, spark: SparkSession) -> None:
     self.df = spark_df  # Store the Spark DataFrame as self.df
     self.config = config  # Store the configuration
-    self.spark = spark
+    self.spark = spark 
+
+    def save_to_delta(self, type) -> None:
+        
