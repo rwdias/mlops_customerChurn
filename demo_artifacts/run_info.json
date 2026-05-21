@@ -1,0 +1,56 @@
+{
+    "info": {
+        "artifact_uri": "dbfs:/databricks/mlflow-tracking/727875952326630/5a3e81c84f324638a4505f088a69abb4/artifacts",
+        "end_time": 1779386171905,
+        "experiment_id": "727875952326630",
+        "lifecycle_stage": "active",
+        "run_id": "5a3e81c84f324638a4505f088a69abb4",
+        "run_name": "telco_churn_demo2",
+        "start_time": 1779386171706,
+        "status": "FINISHED",
+        "user_id": ""
+    },
+    "data": {
+        "metrics": {
+            "RMSE": 104.45
+        },
+        "params": {
+            "max_depth": "16",
+            "type": "telco_churn_type"
+        },
+        "tags": {
+            "git_sha": "12345383hfyt",
+            "mlflow.databricks.cluster.id": "0521-172025-d4nmmt0q-v2n",
+            "mlflow.databricks.cluster.info": "{\"cluster_name\":\"\",\"spark_version\":\"client.5.4-aarch64-scala2.13\",\"autotermination_minutes\":120}",
+            "mlflow.databricks.cluster.libraries": "{\"installable\":[],\"redacted\":[]}",
+            "mlflow.databricks.gitRepoCommit": "6a94616f32e1867ea282888a00003b01bfd826cb",
+            "mlflow.databricks.gitRepoProvider": "gitHub",
+            "mlflow.databricks.gitRepoReference": "main",
+            "mlflow.databricks.gitRepoReferenceType": "branch",
+            "mlflow.databricks.gitRepoRelativePath": "notebooks/data_experiment_tracking",
+            "mlflow.databricks.gitRepoStatus": "unknown",
+            "mlflow.databricks.gitRepoUrl": "https://github.com/rwdias/mlops_custumerChurn.git",
+            "mlflow.databricks.notebook.commandID": "1779383925434_6762788636164381436_79292bf007f4453e93d88eee524487a2",
+            "mlflow.databricks.notebookID": "3633880926632280",
+            "mlflow.databricks.notebookPath": "/Users/rafaelmp.cwb@gmail.com/mlops_custumerChurn/notebooks/data_experiment_tracking",
+            "mlflow.databricks.webappURL": "https://dbc-94bd4411-ae98.cloud.databricks.com",
+            "mlflow.databricks.workspaceID": "7474647519390556",
+            "mlflow.databricks.workspaceURL": "https://dbc-94bd4411-ae98.cloud.databricks.com",
+            "mlflow.note.content": "teste de experiment tracking para telco churn",
+            "mlflow.runColor": "#da4c4c",
+            "mlflow.runName": "telco_churn_demo2",
+            "mlflow.source.name": "/Users/rafaelmp.cwb@gmail.com/mlops_custumerChurn/notebooks/data_experiment_tracking",
+            "mlflow.source.type": "NOTEBOOK",
+            "mlflow.user": "rafaelmp.cwb@gmail.com",
+            "test1": "tested",
+            "mlflow.artifacts.spn": "/WorkspaceInternal/Mlflow/Artifacts/727875952326630/Runs/5a3e81c84f324638a4505f088a69abb4/"
+        }
+    },
+    "inputs": {
+        "model_inputs": [],
+        "dataset_inputs": []
+    },
+    "outputs": {
+        "model_outputs": []
+    }
+}

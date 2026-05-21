@@ -30,7 +30,7 @@ class DataProcessing:
         per_thresh = 0.6
 
         # 1. Deduplicação e seleção de colunas para evitar o erro do Spark Connect
-        colunas_unicas = list(set(cat_features + num_features + binary_features + [target]))
+        colunas_unicas = list(set(cat_features + num_features))
         self.df = self.df.select(colunas_unicas)
 
         # 2. Conversão da coluna tenure para Double de forma isolada

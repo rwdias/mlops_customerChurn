@@ -1,0 +1,15 @@
+{
+    "_experiment_id": "727875952326630",
+    "_name": "/Shared/telco_churn",
+    "_artifact_location": "dbfs:/databricks/mlflow-tracking/727875952326630",
+    "_lifecycle_stage": "active",
+    "_tags": {
+        "mlflow.ownerId": "70453834803369",
+        "repository_name": "mlops/telco_churn",
+        "mlflow.experiment.sourceName": "/Shared/telco_churn",
+        "mlflow.ownerEmail": "rafaelmp.cwb@gmail.com",
+        "mlflow.experimentType": "MLFLOW_EXPERIMENT"
+    },
+    "_creation_time": 1779386155446,
+    "_last_update_time": 1779386155446
+}

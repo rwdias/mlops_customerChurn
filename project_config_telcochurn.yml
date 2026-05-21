@@ -13,10 +13,14 @@ experiment_name_basic: /Shared/telco_churn_base
 experiment_name_custom: /Shared/telco_churn_custom
 
 parameters:
-  learning_rate: 0.01
-  n_estimators: 1000
-  max_depth: 6
-  per_thresh: 0.6
+  n_estimators: 249
+  learning_rate: 0.010101614554456295
+  num_leaves: 47
+  max_depth: 3
+  min_child_samples: 50
+  subsample: 0.8181523124165577
+  colsample_bytree: 0.6246844197312816
+  scale_pos_weight: 1.78510483023539
 
 
 num_features:
@@ -34,6 +38,7 @@ cat_features:
   - MultipleLines
   - TechSupport
   - Contract
+  - Churn
 
 binary_features:
   - SeniorCitizen
