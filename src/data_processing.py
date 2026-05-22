@@ -1,7 +1,7 @@
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, count, when, avg
-from pyspark.sql.types import BooleanType, IntegerType, DoubleType, StringType
+from pyspark.sql.types import BooleanType, IntegerType, DoubleType, StringType, FloatType
 from databricks.feature_engineering import FeatureEngineeringClient
 from typing import Tuple
 from config import ProjectConfig
@@ -30,12 +30,12 @@ class DataProcessing:
         per_thresh = 0.6
 
         # 1. Deduplicação e seleção de colunas para evitar o erro do Spark Connect
-        colunas_unicas = list(set(cat_features + num_features))
+        colunas_unicas = list(set(cat_features + num_features + [target]))
         self.df = self.df.select(colunas_unicas)
 
         # 2. Conversão da coluna tenure para Double de forma isolada
         if "tenure" in self.df.columns:
-            self.df = self.df.withColumn("tenure", col("tenure").cast(DoubleType()))
+            self.df = self.df.withColumn("tenure", col("tenure").cast(FloatType()))
 
         # 3. Mapeamento seguro de todas as colunas binárias de Texto/Int para Double
         for feature in binary_features:
@@ -47,7 +47,7 @@ class DataProcessing:
                     feature,
                     when((feature_str == "Yes") | (feature_str == "yes") | (feature_str == "true") | (feature_str == "True") | (feature_str == "1"), 1.0)
                     .otherwise(0.0)
-                    .cast(DoubleType())
+                    .cast(FloatType())
                 )
 
         # 4. Label Encoding para as variáveis ternárias textuais remanescentes
@@ -58,7 +58,7 @@ class DataProcessing:
                     feature,
                     when((col(feature) == "Yes") | (col(feature) == "yes"), 2.0)
                     .when((col(feature) == "No") | (col(feature) == "no"), 1.0)
-                    .otherwise(0.0).cast(DoubleType())  
+                    .otherwise(0.0).cast(FloatType())  
                 )
 
         # 5. One-Hot Encoding Manual estritamente para a coluna 'Contract'

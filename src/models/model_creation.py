@@ -48,7 +48,7 @@ class BasicModel:
         self.catalog_name = self.config.catalog_name
         self.schema_name = self.config.schema_name
         self.experiment_name = self.config.experiment_name_basic
-        self.model_name = f"{self.catalog_name}.{self.schema_name}.marvel_character_model_basic"
+        self.model_name = f"{self.catalog_name}.{self.schema_name}.telco_churn_lightGBM_model"
         self.tags = tags.to_dict()
 
     def load_data(self) -> None:
@@ -57,9 +57,9 @@ class BasicModel:
         Splits data into features (X_train, X_test) and target (y_train, y_test).
         """
         logger.info("🔄 Loading data from Databricks tables...")
-        self.train_set_spark = self.spark.table(f"{self.catalog_name}.{self.schema_name}.train_set")
+        self.train_set_spark = self.spark.table(f"{self.catalog_name}.{self.schema_name}.telco_features_train")
         self.train_set = self.train_set_spark.toPandas()
-        self.test_set_spark = self.spark.table(f"{self.catalog_name}.{self.schema_name}.test_set")
+        self.test_set_spark = self.spark.table(f"{self.catalog_name}.{self.schema_name}.telco_features_test")
         self.test_set = self.test_set_spark.toPandas()
 
         self.X_train = self.train_set[self.num_features + self.cat_features]
@@ -68,9 +68,9 @@ class BasicModel:
         self.y_test = self.test_set[self.target]
         self.eval_data = self.test_set[self.num_features + self.cat_features + [self.target]]
 
-        train_delta_table = DeltaTable.forName(self.spark, f"{self.catalog_name}.{self.schema_name}.train_set")
+        train_delta_table = DeltaTable.forName(self.spark, f"{self.catalog_name}.{self.schema_name}.telco_features_train")
         self.train_data_version = str(train_delta_table.history().select("version").first()[0])
-        test_delta_table = DeltaTable.forName(self.spark, f"{self.catalog_name}.{self.schema_name}.test_set")
+        test_delta_table = DeltaTable.forName(self.spark, f"{self.catalog_name}.{self.schema_name}.telco_features_test")
         self.test_data_version = str(test_delta_table.history().select("version").first()[0])
         logger.info("✅ Data successfully loaded.")
 
@@ -121,8 +121,8 @@ class BasicModel:
         self.pipeline = Pipeline(
             steps=[("preprocessor", preprocessor), ("regressor", LGBMClassifier(**self.parameters))]
         )
-        logger.info("✅ Preprocessing pipeline defined.")
-
+        logger.info("✅ Preprocessing pipeline defined.") 
+    
     def train(self) -> None:
         """Train the model."""
         logger.info("🚀 Starting training...")
@@ -137,13 +137,13 @@ class BasicModel:
             signature = infer_signature(model_input=self.X_train, model_output=self.pipeline.predict(self.X_train))
             train_dataset = mlflow.data.from_spark(
                 self.train_set_spark,
-                table_name=f"{self.catalog_name}.{self.schema_name}.train_set",
+                table_name=f"{self.catalog_name}.{self.schema_name}.telco_features_train",
                 version=self.train_data_version,
             )
             mlflow.log_input(train_dataset, context="training")
             test_dataset = mlflow.data.from_spark(
                 self.test_set_spark,
-                table_name=f"{self.catalog_name}.{self.schema_name}.test_set",
+                table_name=f"{self.catalog_name}.{self.schema_name}.telco_features_test",
                 version=self.test_data_version,
             )
             mlflow.log_input(test_dataset, context="testing")

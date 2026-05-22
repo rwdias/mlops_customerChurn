@@ -38,7 +38,6 @@ cat_features:
   - MultipleLines
   - TechSupport
   - Contract
-  - Churn
 
 binary_features:
   - SeniorCitizen
